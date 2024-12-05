@@ -8,13 +8,15 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const API_KEY = "2af9fa8786a44a54b32105125240512"; // Replace with your actual API key
+  const API_KEY = "2af9fa8786a44a54b32105125240512";
   const apiUrl = "https://api.weatherapi.com/v1/current.json";
 
   const handleSearch = async () => {
     if (!city) return;
     setLoading(true);
     setError(false);
+    setWeatherData(null);
+
     try {
       const response = await axios.get(apiUrl, {
         params: {
@@ -24,6 +26,7 @@ function App() {
       });
       setWeatherData(response.data);
     } catch (error) {
+      console.error("Error fetching weather data:", error);
       setError(true);
     } finally {
       setLoading(false);
@@ -51,8 +54,14 @@ function App() {
         <div className="weather-cards">
           <div className="weather-card">
             <p>Temperature: {weatherData.current.temp_c}°C</p>
+          </div>
+          <div className="weather-card">
             <p>Humidity: {weatherData.current.humidity}%</p>
+          </div>
+          <div className="weather-card">
             <p>Condition: {weatherData.current.condition.text}</p>
+          </div>
+          <div className="weather-card">
             <p>Wind Speed: {weatherData.current.wind_kph} kph</p>
           </div>
         </div>
