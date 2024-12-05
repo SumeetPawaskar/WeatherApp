@@ -46,7 +46,7 @@ function App() {
         <button onClick={handleSearch}>Search</button>
       </div>
 
-      {loading && <p>Loading data…</p>}
+      {loading && <p>Loading data</p>}
 
       {error && <p>Failed to fetch weather data</p>}
 
